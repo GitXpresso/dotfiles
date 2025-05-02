@@ -3,7 +3,7 @@ if [ -f /usr/bin/zrok ]; then
    exit 1
 else
    echo "Zrok is not installed, installing..."
-fi
+
 if [ -f /usr/bin/apt ]; then
 if grep 'sudo apt update' ~/.bash_history; then
    echo "system is already updated"
@@ -94,4 +94,5 @@ fi
    sleep 0.5
    clear
    echo "finished, to run zrok do: 'zrok'"
+fi
 fi
