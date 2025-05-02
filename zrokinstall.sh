@@ -44,8 +44,11 @@ fi
    tar -xf zrok_1.0.3_linux_amd64.tar.gz -C ~/
    echo "done extracting, moving zrok to /usr/bin..."
    sudo mv ~/zrok /usr/bin
+   sleep 0.5
+   clear
    echo "zrok is located at $(whereis zrok)"
-   sleep 0.5 clear
+   sleep 0.5
+   clear
    echo "finished, to run zrok do: 'zrok'"
 fi
 if [ -d /etc/pacman.d ]; then
