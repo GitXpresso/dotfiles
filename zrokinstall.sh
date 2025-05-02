@@ -1,3 +1,7 @@
+if whereis zrok; then
+   echo "zrok is installed."
+else
+   echo "Zrok 
 if [ -f /usr/bin/apt ]; then
 if [ -f /usr/bin/tar ]; then
    echo "tar is installed, not installing."
