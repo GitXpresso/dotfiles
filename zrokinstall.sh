@@ -22,6 +22,8 @@ fi
    clear
    echo "downloading zrok tarfile..."
    wget https://github.com/openziti/zrok/releases/download/v1.0.3/zrok_1.0.3_linux_amd64.tar.gz -q --show-progress
+   sleep 0.5
+   clear
    echo "done downloading zrok tar file."
    echo "Extracting tarfile..."
    tar -xf zrok_1.0.3_linux_amd64.tar.gz -C ~/
@@ -62,8 +64,11 @@ else
    clear
    echo "wget is installed, installing zrok..."
 fi
+   echo "downloading zrok tarfile..."
    wget https://github.com/openziti/zrok/releases/download/v1.0.3/zrok_1.0.3_linux_amd64.tar.gz -q --show-progress
-   tar -xf zrok_1.0.3_linux_amd64.tar.gz -C ~/
+   sleep 0.5
+   clear
+   echo "done downloading zrok tar file."
    echo "moving zrok to /usr/bin"
    sudo mv ~/zrok /usr/bin
    echo "zrok is located at $(whereis zrok)"
