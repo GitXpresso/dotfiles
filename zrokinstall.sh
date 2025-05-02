@@ -1,8 +1,19 @@
 if whereis zrok; then
    echo "zrok is installed."
 else
-   echo "Zrok 
+   echo "Zrok is not installed, installing..."
+fi
 if [ -f /usr/bin/apt ]; then
+if grep 'sudo apt update' ~/.bash_history; then
+   echo "system is already updated"
+else
+   echo "system is not updated, updating system..."
+   sudo apt update
+   clear
+   echo "finished updating, installing zrok"
+fi
+   sleep 0.5
+   clear
 if [ -f /usr/bin/tar ]; then
    echo "tar is installed, not installing."
 else
