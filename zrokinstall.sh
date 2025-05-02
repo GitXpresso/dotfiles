@@ -1,4 +1,4 @@
-if whereis zrok; then
+if [ -f /usr/bin/zrok ]; then
    echo "zrok is installed."
    exit 1
 else
