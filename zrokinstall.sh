@@ -1,5 +1,6 @@
 if whereis zrok; then
    echo "zrok is installed."
+   exit 1
 else
    echo "Zrok is not installed, installing..."
 fi
