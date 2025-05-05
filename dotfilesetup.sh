@@ -1,3 +1,5 @@
+read -p "do you want to install librewolf ( this will be replaced by l? (yes/no): " yesorno
+if [ $yesorno == yes ]; then
 if [ -f /usr/bin/zrok ]; then
    echo "zrok is installed."
    exit 1
