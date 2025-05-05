@@ -1,11 +1,3 @@
-read -p "do you want to install librewolf ( this will be replaced by l? (yes/no): " yesorno
-if [ $yesorno == yes ]; then
-if [ -f /usr/bin/zrok ]; then
-   echo "zrok is installed."
-   exit 1
-else
-   echo "Zrok is not installed, installing..."
-
 if [ -f /usr/bin/apt ]; then
 if grep 'sudo apt update' ~/.bash_history; then
    echo "system is already updated"
@@ -13,10 +5,28 @@ else
    echo "system is not updated, updating system..."
    sudo apt update
    clear
-   echo "finished updating, installing zrok"
+   echo "finished updating, installing zrok after this prompt"
 fi
    sleep 0.5
    clear
+read -p "do you want to install librewolf ( once ladybird browser releases this will be replaced? (yes/no): " yesorno
+if [ $yesorno == yes ]; then
+echo "installing extrepo..."
+sudo apt install extrepo -y
+sleep 0.5 
+clear
+echo "installing librewolf..."
+sudo extrepo enable librewolf -y
+sleep 0.5 
+clear
+echo "librewolf is installed, installing zrok..."
+sudo apt install librewolf
+if [ -f /usr/bin/zrok ]; then
+
+   echo "zrok is installed."
+   exit 1
+else
+   echo "Zrok is not installed, installing..."
 if [ -f /usr/bin/tar ]; then
    echo "tar is installed, not installing."
 else
