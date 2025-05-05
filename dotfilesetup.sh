@@ -96,5 +96,6 @@ fi
    sleep 0.5
    clear
    echo "finished, to run zrok do: 'zrok'"
+   rm zrok_1.0.3_linux_amd64*.tar.gz
 fi
 fi
