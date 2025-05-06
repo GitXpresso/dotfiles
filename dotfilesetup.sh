@@ -11,16 +11,21 @@ fi
    clear
 read -p "do you want to install librewolf ( once ladybird browser releases this will be replaced? (yes/no): " yesorno
 if [ $yesorno == yes ]; then
-echo "installing extrepo..."
-sudo apt install extrepo -y
-sleep 0.5 
-clear
-echo "installing librewolf..."
-sudo extrepo enable librewolf -y
-sleep 0.5 
-clear
-echo "librewolf is installed, installing zrok..."
-sudo apt install librewolf
+   echo "installing extrepo..."
+   sudo apt install extrepo -y
+   sleep 0.5 
+   clear
+   echo "installing librewolf..."
+   sudo extrepo enable librewolf -y
+   sleep 0.5 
+   clear
+   echo "librewolf is installed, installing zrok..."
+   sudo apt install librewolf -y
+elif [ $yesorno == no ]; then
+     echo "not installing librewolf."
+else
+     echo "invalid input."
+fi
 if [ -f /usr/bin/zrok ]; then
 
    echo "zrok is installed."
