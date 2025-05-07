@@ -1,26 +1,14 @@
-
-if [ -f /usr/bin/pacman ]; then
-if grep 'sudo pacman -Syu update' ~/.bash_history; then
+if grep 'sudo apt update' ~/.bash_history; then
    echo "system is already updated"
 else
    echo "system is not updated, updating system..."
-   sudo pacman -Syu update
+   sudo apt update
    clear
    echo "finished updating."
 fi
    sleep 0.5
    clear
-read -p "do you want to install librewolf ( once ladybird browser releases this will be replaced? (yes/no): " yesorno
-if [ $yesorno == yes ]; then
-   echo "installing librewolf..."
-   sudo yay -S librewolf --noconfirm
-   sleep 0.5
-   clear
-elif [ $yesorno == no ]; then
-     echo "not installing librewolf."
-else
-     echo "invalid input."
-fi
+
 if [ -f /usr/bin/zrok ]; then
 
    echo "zrok is installed."
