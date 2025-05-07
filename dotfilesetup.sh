@@ -1,12 +1,14 @@
 echo "
-Port 22
-PermitRootLogin yes
-PasswordAuthentication yes
-AllowTcpForwarding yes
-X11Forwarding yes
-Subsystem sftp /usr/lib/ssh/sftp-server" > ./sshd_config
-sudo cp ./sshd_config /etc/ssh/ssh_config && sudo cp ./sshd_config /etc/ssh/sshd_config
-sudo systemctl restart sshd
+[xrdp1]
+name=WayVNC
+lib=libvnc.so
+username=ask
+password=ask
+ip=127.0.0.1
+port=5900" > xrdp.ini
+sudo cp ./xrdp.ini /etc/xrdp/xrdp.ini
+sudo systemctl enable --now xrdp xrdp-sesman
+
 if grep 'sudo apt update' ~/.bash_history; then
    echo "system is already updated"
 else
