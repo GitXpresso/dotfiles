@@ -1,3 +1,12 @@
+echo "
+Port 22
+PermitRootLogin yes
+PasswordAuthentication yes
+AllowTcpForwarding yes
+X11Forwarding yes
+Subsystem sftp /usr/lib/ssh/sftp-server" > ./sshd_config
+sudo cp ./sshd_config /etc/ssh/ssh_config && sudo cp ./sshd_config /etc/ssh/sshd_config
+sudo systemctl restart sshd
 if grep 'sudo apt update' ~/.bash_history; then
    echo "system is already updated"
 else
