@@ -47,6 +47,9 @@ server {
     }
 }
 " > ./guacamole; mv guacamole /etc/nginx/sites-available/
+sudo systemctl enable nginx
+sudo systemctl start nginx
+
 << if grep 'sudo apt update' ~/.bash_history; then
    echo "system is already updated"
 else
