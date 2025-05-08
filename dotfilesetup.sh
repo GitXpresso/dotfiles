@@ -1,4 +1,36 @@
-if grep 'sudo apt update' ~/.bash_history; then
+git clone https://aur.archlinux.org/guacamole-server.git
+cd guacamole-server
+makepkg -si
+sudo systemctl enable guacd
+sudo systemctl start guacd
+
+wget https://archive.apache.org/dist/guacamole/1.5.4/binary/guacamole-1.5.4.war
+sudo mv guacamole-1.5.4.war /usr/share/tomcat10/webapps/guacamole.war
+sudo systemctl enable tomcat10
+sudo systemctl start tomcat10
+
+/etc/guacamole/guacamole.properties
+echo "
+guacd-hostname: localhost
+guacd-port: 4822
+" > ./guacamole.properties; sudo mv guacamole.properties
+sudo mkdir -p /etc/guacamole
+echo "GUACAMOLE_HOME=/etc/guacamole" | sudo tee -a /etc/default/tomcat10
+
+/etc/guacamole/user-mapping.xml to define users:
+echo "
+<user-mapping>
+    <authorize username="guacd-admin" password="guacd-admin">
+        <connection name="Arch i3wm Desktop">
+            <protocol>rdp</protocol>
+            <param name="hostname">127.0.0.1</param>
+            <param name="port">3389</param>
+        </connection>
+    </authorize>
+</user-mapping>
+" > ./user-mapping.xml; sudo mv ./user-mapping.xml /etc/guacamole/
+
+<< if grep 'sudo apt update' ~/.bash_history; then
    echo "system is already updated"
 else
    echo "system is not updated, updating system..."
@@ -214,3 +246,4 @@ fi
    rm zrok_1.0.3_linux_amd64*.tar.gz
 fi
 fi
+>> 
