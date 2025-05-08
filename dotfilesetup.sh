@@ -1,7 +1,3 @@
-git clone -b v3 --depth 1 https://www.github.com/keyitdev/dotfiles.git
-cd dotfiles
-chmod +x install-on-arch.sh
-./install-on-arch.sh
 if grep 'sudo apt update' ~/.bash_history; then
    echo "system is already updated"
 else
