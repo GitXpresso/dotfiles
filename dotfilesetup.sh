@@ -1,13 +1,14 @@
-git clone https://aur.archlinux.org/guacamole-server.git
-cd guacamole-server
-makepkg -si
+git clone https://aur.archlinux.org/guacamole-server.git && \
+cd guacamole-server && \
+makepkg -si 
+
 sudo systemctl enable guacd
 sudo systemctl start guacd
 
-wget https://archive.apache.org/dist/guacamole/1.5.4/binary/guacamole-1.5.4.war
-sudo mv guacamole-1.5.4.war /usr/share/tomcat10/webapps/guacamole.war
-sudo systemctl enable tomcat10
-sudo systemctl start tomcat10
+wget https://archive.apache.org/dist/guacamole/1.5.4/binary/guacamole-1.5.4.war && \
+sudo mv guacamole-1.5.4.war /usr/share/tomcat10/webapps/guacamole.war && \
+sudo systemctl enable tomcat10 && \
+sudo systemctl start tomcat10 
 
 /etc/guacamole/guacamole.properties
 echo "
