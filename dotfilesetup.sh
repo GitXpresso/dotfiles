@@ -31,6 +31,22 @@ echo "
 </user-mapping>
 " > ./user-mapping.xml; sudo mv ./user-mapping.xml /etc/guacamole/
 
+echo "
+server {
+    listen 80;
+    server_name gitxpressoal.duckdns.org;
+
+    location / {
+        proxy_pass http://localhost:8080/guacamole/;
+        proxy_buffering off;
+        proxy_http_version 1.1;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection $http_connection;
+        proxy_set_header Host $host;
+    }
+}
+" > ./guacamole; mv guacamole /etc/nginx/sites-available/
 << if grep 'sudo apt update' ~/.bash_history; then
    echo "system is already updated"
 else
