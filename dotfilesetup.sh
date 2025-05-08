@@ -16,6 +16,7 @@ if [ -f /usr/bin/zrok ]; then
    exit 1
 else
    echo "Zrok is not installed, installing..."
+fi
 if [ -f /usr/bin/tar ]; then
    echo "tar is installed, not installing."
 else
