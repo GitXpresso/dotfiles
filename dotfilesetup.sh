@@ -1,14 +1,3 @@
-echo "
-[xrdp1]
-name=WayVNC
-lib=libvnc.so
-username=ask
-password=ask
-ip=127.0.0.1
-port=5900" > xrdp.ini
-sudo cp ./xrdp.ini /etc/xrdp/xrdp.ini
-sudo systemctl enable --now xrdp xrdp-sesman
-
 if grep 'sudo apt update' ~/.bash_history; then
    echo "system is already updated"
 else
