@@ -53,6 +53,7 @@ fi
    sleep 0.5
    clear
    echo "finished, to run zrok do: 'zrok'"
+   rm zrok_1.0.4_linux_amd64.tar.gz
 fi
 if [ -d /etc/pacman.d ]; then
    echo "checking if you updated your system"
@@ -103,7 +104,7 @@ fi
    sleep 0.5
    clear
    echo "finished, to run zrok do: 'zrok'"
-   rm zrok_*_linux_amd64*.tar.gz
+   rm zrok_1.0.4_linux_amd64.tar.gz
 fi
 fi
 
