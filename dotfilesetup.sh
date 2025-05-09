@@ -44,7 +44,7 @@ fi
    clear
    echo "done downloading zrok tar file."
    echo "Extracting tarfile..."
-   tar -xvf ./zrok_*_linux_amd64.tar.gz 
+   tar -xvf ./zrok_1.0.4_linux_amd64.tar.gz 
    echo "done extracting, moving zrok to /usr/bin..."
    sudo mv ~/zrok /usr/bin
    sleep 0.5
@@ -90,6 +90,13 @@ fi
    sleep 0.5
    clear
    echo "done downloading zrok tar file."
+   sleep 0.5
+   clear
+   echo "Extracting tar file..."
+   tar -xvf zrok_1.0.4_linux_amd64.tar.gz
+   sleep 0.5
+   clear
+   echo "done extracting tarfile."
    echo "moving zrok to /usr/bin"
    sudo mv ~/zrok /usr/bin
    echo "zrok is located at $(whereis zrok)"
