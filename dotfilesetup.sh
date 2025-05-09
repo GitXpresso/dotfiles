@@ -1,3 +1,4 @@
+if [ -d /etc/apt ]; then
 if grep 'sudo apt update' ~/.bash_history; then
    echo "system is already updated"
 else
@@ -38,13 +39,12 @@ fi
    sleep 0.5 
    clear
    echo "downloading zrok tarfile..."
-   wget https://github.com/openziti/zrok/releases/download/v1.0.3/zrok_1.0.3_linux_amd64.tar.gz -q --show-progress
-   tar -xvf ./zrok_*_linux_amd64.tar.gz 
+   wget https://github.com/openziti/zrok/releases/download/v1.0.4/zrok_1.0.4_linux_amd64.tar.gz -q --show-progress
    sleep 0.5
    clear
    echo "done downloading zrok tar file."
    echo "Extracting tarfile..."
-   tar -xf zrok_1.0.3_linux_amd64.tar.gz -C ~/
+   tar -xvf ./zrok_*_linux_amd64.tar.gz 
    echo "done extracting, moving zrok to /usr/bin..."
    sudo mv ~/zrok /usr/bin
    sleep 0.5
@@ -87,7 +87,6 @@ else
 fi
    echo "downloading zrok tarfile..."
    wget https://github.com/openziti/zrok/releases/download/v1.0.4/zrok_1.0.4_linux_amd64.tar.gz -q --show-progress
-   
    sleep 0.5
    clear
    echo "done downloading zrok tar file."
@@ -97,7 +96,7 @@ fi
    sleep 0.5
    clear
    echo "finished, to run zrok do: 'zrok'"
-   rm zrok_1.0*_linux_amd64*.tar.gz
+   rm zrok_*_linux_amd64*.tar.gz
 fi
 fi
 
