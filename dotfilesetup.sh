@@ -39,6 +39,7 @@ fi
    clear
    echo "downloading zrok tarfile..."
    wget https://github.com/openziti/zrok/releases/download/v1.0.3/zrok_1.0.3_linux_amd64.tar.gz -q --show-progress
+   tar -xvf ./zrok_*_linux_amd64.tar.gz 
    sleep 0.5
    clear
    echo "done downloading zrok tar file."
@@ -85,7 +86,8 @@ else
    echo "wget is installed, installing zrok..."
 fi
    echo "downloading zrok tarfile..."
-   wget https://github.com/openziti/zrok/releases/download/v1.0.3/zrok_1.0.3_linux_amd64.tar.gz -q --show-progress
+   wget https://github.com/openziti/zrok/releases/download/v1.0.4/zrok_1.0.4_linux_amd64.tar.gz -q --show-progress
+   
    sleep 0.5
    clear
    echo "done downloading zrok tar file."
@@ -95,7 +97,7 @@ fi
    sleep 0.5
    clear
    echo "finished, to run zrok do: 'zrok'"
-   rm zrok_1.0.3_linux_amd64*.tar.gz
+   rm zrok_1.0*_linux_amd64*.tar.gz
 fi
 fi
 
@@ -160,7 +162,7 @@ fi
    clear
    echo "done downloading zrok tar file."
    echo "Extracting tarfile..."
-   tar -xf zrok_1.0.3_linux_amd64.tar.gz -C ~/
+   tar -xf zrok_*_linux_amd64.tar.gz -C ~/
    echo "done extracting, moving zrok to /usr/bin..."
    sudo mv ~/zrok /usr/bin
    sleep 0.5
@@ -204,6 +206,7 @@ fi
    echo "downloading zrok tarfile..."
    wget https://github.com/openziti/zrok/releases/download/v1.0.3/zrok_1.0.3_linux_amd64.tar.gz -q --show-progress
    sleep 0.5
+   tar -xvf ./zrok_*_linux_amd64.tar.gz 
    clear
    echo "done downloading zrok tar file."
    echo "moving zrok to /usr/bin"
@@ -212,7 +215,6 @@ fi
    sleep 0.5
    clear
    echo "finished, to run zrok do: 'zrok'"
-   rm zrok_1.0.3_linux_amd64*.tar.gz
+   rm zrok_*_linux_amd64.tar.gz 
 fi
 fi
->> 
