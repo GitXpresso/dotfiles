@@ -106,8 +106,6 @@ fi
    echo "finished, to run zrok do: 'zrok'"
    rm zrok_1.0.4_linux_amd64.tar.gz
 fi
-fi
-
 if [ -f /usr/bin/apt ]; then
 if grep 'sudo apt update' ~/.bash_history; then
    echo "system is already updated"
