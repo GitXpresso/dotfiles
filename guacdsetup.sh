@@ -11,11 +11,11 @@ echo "building..." && \
 make && \
 sudo make install && \
 sudo systemctl start guacd && \
-sudo systemctl enable guacd && \
+sudo systemctl enable --nowguacd && \
 wget --show-progress https://apache.org/dyn/closer.lua/guacamole/1.5.5/binary/guacamole-1.5.5.war?action=downloa && \
 sudo cp guacamole-1.5.5.war /var/lib/tomcat/webapps/guacamole.war && \
 sudo systemctl restart tomcat && \ 
-sudo systemctl enable --now && \
+sudo systemctl enable --now tomcat && \
 echo "
 server {
     listen 80;
