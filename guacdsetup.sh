@@ -1,9 +1,9 @@
 #!/bin/bash
 
 echo "installing packages..." && \
-sudo pacman -S tomcat-native libvncserver freerdp nginx certbot python-certbot-nginx && \
-wget --show-progress https://apache.org/dyn/closer.lua/guacamole/1.5.5/source/guacamole-server-1.5.5.tar.gz -O guacamole-server.tar.gz && \
-tar -xvf guacamole-server.tar.gz && \
+sudo pacman -S tomcat-native libvncserver freerdp nginx certbot certbot-nginx && \
+wget --show-progress https://apache.org/dyn/closer.lua/guacamole/1.5.5/source/guacamole-server-1.5.5.tar.gz && \
+tar -xvf guacamole-server-1.5.5.tar.gz && \
 sleep 0.5 && clear && \
 cd guacamole-server-1.5.5 && \ 
 echo "building..." && \
@@ -12,7 +12,7 @@ make && \
 sudo make install && \
 sudo systemctl start guacd && \
 sudo systemctl enable guacd && \
-wget --show-progress https://apache.org/dyn/closer.lua/guacamole/1.5.5/binary/guacamole-1.5.5.war?action=download -O guacamole-1.5.5.war && \
+wget --show-progress https://apache.org/dyn/closer.lua/guacamole/1.5.5/binary/guacamole-1.5.5.war?action=downloa && \
 sudo cp guacamole-1.5.5.war /var/lib/tomcat/webapps/guacamole.war && \
 sudo systemctl restart tomcat && \ 
 sudo systemctl enable --now && \
