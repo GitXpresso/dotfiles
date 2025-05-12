@@ -6,14 +6,15 @@ wget --show-progress https://apache.org/dyn/closer.lua/guacamole/1.5.5/source/gu
 tar -xvf guacamole-server-1.5.5.tar.gz && \
 sleep 0.5 && clear && \
 cd guacamole-server-1.5.5 && \ 
+sed -i 's/avcodec_close(\(.*\));/avcodec_free_context(\&\1);/' src/guacenc/video.c && \
 echo "building..." && \
 ./configure --with-init-dir=/etc/init.d && \ 
 make && \
 sudo make install && \
 sudo systemctl start guacd && \
-sudo systemctl enable --nowguacd && \
-wget --show-progress https://apache.org/dyn/closer.lua/guacamole/1.5.5/binary/guacamole-1.5.5.war?action=downloa && \
-sudo cp guacamole-1.5.5.war /var/lib/tomcat/webapps/guacamole.war && \
+sudo systemctl enable --now guacd && \
+wget --show-progress https://apache.org/dyn/closer.lua/guacamole/1.5.5/binary/guacamole-1.5.5.war?action=download && \
+sudo cp guacamole-1.5.5.war /var/lib/tomcat10/webapps/guacamole.war && \
 sudo systemctl restart tomcat && \ 
 sudo systemctl enable --now tomcat && \
 echo "
