@@ -42,6 +42,16 @@ fi
        sleep 0.5
        clear
    fi
+     if [ -f /usr/bin/pv ]; then
+       echo "pv is already installed."
+       sleep 0.5
+       clear
+   else
+       echo "pv is not installed, installing..."
+       sudo apt install pv -y
+       sleep 0.5
+       clear
+   fi
    if [ -f /usr/bin/openbox ]; then
        echo "openbox is already installed."
        sleep 0.5
@@ -346,16 +356,9 @@ fi
 if [ -d ~/.librewolf/ ]; then
 read -p "there already files in ~/.librewolf, do you want to override? (y/n/yes/no): " yesorno1
 if [ "$yesorno1" = "y" ] || [ "$yesorno1" = "yes" ]; then
- echo "checkng if pv is installed..."
-   if [ ! -f /usr/bin/pv ]; then
-      sudo apt install -y
-   else
-      echo "pv is installed."
-   fi
-   clear
    echo "downloading librewolf.tar.cpt..."
  if [ ! -f ./librewolf.tar.cpt ]; then
-      wget --show-progress https://github.com/GitXpresso/dotfiles/releases/download/Files/librewolf.tar.cpt
+      wget --show-progress https://github.com/GitXpresso/dotfiles/releases/download/Files/librewolf2.tar.cpt
       sleep 0.5
       clear
    else
@@ -363,13 +366,13 @@ if [ "$yesorno1" = "y" ] || [ "$yesorno1" = "yes" ]; then
       sleep 0.5
       clear
    fi 
-   ccrypt -d librewolf.tar.cpt
-   if [ -f ./librewolf.tar.cpt ]; then
+   sudo ccrypt -d librewolf2.tar.cpt
+   if [ -f ./librewolf2.tar.cpt ]; then
       clear
       echo "incorrect password, try again."
-      ccrypt -d librewolf.tar.cpt
+      sudo ccrypt -d librewolf2.tar.cpt
    else
-      pv ./librewolf.tar | tar -xf    
+      pv "./librewolf2.tar" | tar -xf-    
       cp -r ./librewolf/.librewolf ~/.librewolf
    fi
 elif [ $yesorno1 == no ] || [ $yesorno1 == n ]; then 
@@ -381,6 +384,8 @@ else
 fi
   else 
     echo "~/.librewolf does not exist continuing with the script."
-    exit
+    bash /etc/profile.d/librewolf.sh
+    vncserver -kill :1
+    redo
 fi
 echo "finished!"
