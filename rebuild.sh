@@ -11,6 +11,15 @@ else
    clear
 fi
 if [ -d /etc/apt ]; then
+if [ -f $HOME/.bash_history ]; then
+   echo ".bash_history exists."
+else 
+   echo ".bash_history does not exist."
+   history -w
+   echo "done adding ~/.bash_history"
+   sleep 0.5 
+   clear
+fi
    grep "sudo apt update" ~/.bash_history 2>&1 >/dev/null
 
    if [ $? -eq 0 ]; then  
@@ -103,16 +112,6 @@ if [ -d /etc/apt ]; then
        sleep 0.5
        clear
    fi
-   if [ -f /usr/bin/bleachbit ]; then
-       echo "beachbit is already installed."
-       sleep 0.5
-       clear
-   else
-       echo "beachbit is not installed, installing..."
-       sudo apt install -y beachbit
-       sleep 0.5
-       clear
-   fi
    if [ -f /usr/bin/tilix ]; then
        echo "tilix is already installed."
        sleep 0.5
@@ -130,19 +129,16 @@ if [ -d /etc/apt ]; then
    else
        echo "installing librewolf"
        sudo extrepo enable librewolf
+       sudo apt update
+       sleep 0.5
+       clear
+       echo "installing librewolf"
        sudo apt install -y librewolf
        sleep 0.5
        clear 
-   fi
-   if [ -f /usr/bin/openbox ]; then
-       echo "openbox  is already installed."
+       echo "done installing librewolf"
        sleep 0.5
        clear
-   else
-       echo "installing openbox"
-       sudo apt install -y openbox
-       sleep 0.5
-       clear 
    fi
    if [ -f /usr/bin/ccrypt ]; then
        echo "ccrypt is already installed."
@@ -159,8 +155,8 @@ echo "your not on a debian based system"
 exit 1
 fi
 
-mkdir -p ~/bashrctest
-cat << 'EOF' >~/bashrctest/.bashrc
+mkdir -p ~/bashrc
+cat << 'EOF' >~/bashrc/.bashrc
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
@@ -343,6 +339,7 @@ else
 fi
 else 
     echo "~/.librewolf does not exist continuing with the script."
+    exit 1
     redo
 fi
 } 
@@ -384,6 +381,6 @@ else
 fi
   else 
     echo "~/.librewolf does not exist continuing with the script."
-    redo
+    exit
 fi
 echo "finished!"
