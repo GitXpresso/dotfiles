@@ -322,8 +322,8 @@ if [ "$yesorno1" = "y" ] || [ "$yesorno1" = "yes" ]; then
    fi
    clear
    echo "downloading librewolf.tar.cpt..."
- if [ ! -f ~/.librewolf.tar.cpt ]; then
-      wget --show-progress https://github.com/GitXpresso/dotfiles/releases/download/Files/librewolf.tar.cpt
+ if [ ! -f ~/.librewolf3.tar.cpt ]; then
+      wget --show-progress https://github.com/GitXpresso/dotfiles/releases/download/Files/librewolf3.tar.cpt
       sleep 0.5
       clear
    else
@@ -331,11 +331,11 @@ if [ "$yesorno1" = "y" ] || [ "$yesorno1" = "yes" ]; then
       sleep 0.5
       clear
    fi
-      ccrypt -d librewolf.tar.cpt
-   if [ -f ./librewolf.tar.cpt ]; then
+      ccrypt -d librewolf3.tar.cpt
+   if [ -f ./librewolf3.tar.cpt ]; then
       clear
       echo "incorrect password, try again."
-      ccrypt -d librewolf.tar.cpt
+      ccrypt -d librewolf3.tar.cpt
    else
       pv ./librewolf.tar | tar -xf    
       cp -r ./librewolf/.librewolf ~/.librewolf
@@ -356,9 +356,9 @@ fi
 if [ -d ~/.librewolf/ ]; then
 read -p "there already files in ~/.librewolf, do you want to override? (y/n/yes/no): " yesorno1
 if [ "$yesorno1" = "y" ] || [ "$yesorno1" = "yes" ]; then
-   echo "downloading librewolf.tar.cpt..."
+   echo "downloading librewolf3.tar.cpt..."
  if [ ! -f ./librewolf.tar.cpt ]; then
-      wget --show-progress https://github.com/GitXpresso/dotfiles/releases/download/Files/librewolf2.tar.cpt
+      wget --show-progress https://github.com/GitXpresso/dotfiles/releases/download/Files/librewolf3.tar.cpt
       sleep 0.5
       clear
    else
@@ -372,9 +372,10 @@ if [ "$yesorno1" = "y" ] || [ "$yesorno1" = "yes" ]; then
       echo "incorrect password, try again."
       sudo ccrypt -d librewolf3.tar.cpt
    else
-      pv "./librewolf2.tar" | tar -xf-   
-      sudo rm -rf ~/.librewolf/*.default-default/* 
-      cp ./home/codeany/.librewolf/436rkz4f.default-default/* ~/.librewolf/*.default-default      
+      pv "./librewolf3.tar" | tar -xf-   
+      cd ./home/codeany/.librewolf/436rkz4f.default-default
+      sudo rm -r {settings,storage}
+      sudo cp -r * ~/.librewolf/*.default-default/ 
       rm librewolf3*
    fi
 elif [ $yesorno1 == no ] || [ $yesorno1 == n ]; then 
