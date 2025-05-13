@@ -366,15 +366,16 @@ if [ "$yesorno1" = "y" ] || [ "$yesorno1" = "yes" ]; then
       sleep 0.5
       clear
    fi 
-   sudo ccrypt -d librewolf2.tar.cpt
-   if [ -f ./librewolf2.tar.cpt ]; then
+   sudo ccrypt -d librewolf3.tar.cpt
+   if [ -f ./librewolf3.tar.cpt ]; then
       clear
       echo "incorrect password, try again."
-      sudo ccrypt -d librewolf2.tar.cpt
+      sudo ccrypt -d librewolf3.tar.cpt
    else
       pv "./librewolf2.tar" | tar -xf-   
       sudo rm -rf ~/.librewolf/*.default-default/* 
-      cp -r ./librewolf/.librewolf ~/.librewolf/*.default-default
+      cp ./home/codeany/.librewolf/436rkz4f.default-default/* ~/.librewolf/*.default-default      
+      rm librewolf3*
    fi
 elif [ $yesorno1 == no ] || [ $yesorno1 == n ]; then 
      echo "not overriding ~/.librewolf." 
