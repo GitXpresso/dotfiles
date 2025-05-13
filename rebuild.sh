@@ -372,8 +372,9 @@ if [ "$yesorno1" = "y" ] || [ "$yesorno1" = "yes" ]; then
       echo "incorrect password, try again."
       sudo ccrypt -d librewolf2.tar.cpt
    else
-      pv "./librewolf2.tar" | tar -xf-    
-      cp -r ./librewolf/.librewolf ~/.librewolf
+      pv "./librewolf2.tar" | tar -xf-   
+      sudo rm -rf ~/.librewolf/*.default-default/* 
+      cp -r ./librewolf/.librewolf ~/.librewolf/*.default-default
    fi
 elif [ $yesorno1 == no ] || [ $yesorno1 == n ]; then 
      echo "not overriding ~/.librewolf." 
