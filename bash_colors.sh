@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/bin/bash 
+echo "creating colours..."
+cat << EOF >./bash_colors.sh
 #!/bin/bash
 # bash_colors.sh
 #
@@ -131,3 +133,5 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
     echo -e "   ${CYAN}echo -e \"\${GREEN}Operation successful!\${RESET}\"${RESET}"
     echo -e "   ${CYAN}echo -e \"\${BOLD}\${YELLOW}Warning:\${RESET} \${YELLOW}Something needs attention.\${RESET}\"${RESET}"
 fi
+EOF
+echo "to add the colors in $(ls ~/bash_colors.sh) in your file add \"source ~/bash_colors.sh\"" 
