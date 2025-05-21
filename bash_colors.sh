@@ -134,4 +134,4 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
     echo -e "   ${CYAN}echo -e \"\${BOLD}\${YELLOW}Warning:\${RESET} \${YELLOW}Something needs attention.\${RESET}\"${RESET}"
 fi
 EOF
-echo "to add the colors in $(ls ~/bash_colors.sh) in your file add \"source ~/bash_colors.sh\"" 
+echo "to add the colors in \"~/bash_colors.sh\" in your file add \"source ~/bash_colors.sh\" to your sh file" 
