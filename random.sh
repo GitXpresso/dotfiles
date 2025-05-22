@@ -5,7 +5,7 @@ set -e
 
 # --- Configuration ---
 AUR_HELPER="yay" # Change to "paru" or your preferred AUR helper
-SOUND_SYSTEM="pipewire" # Change to "pulseaudio" if you use PulseAudio
+SOUND_SYSTEM="pulseaudio" # Change to "pulseaudio" if you use PulseAudio
 
 # --- Helper Functions ---
 info() {
