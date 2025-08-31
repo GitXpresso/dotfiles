@@ -5,7 +5,6 @@ sudo apt update
 if [[ "$yesorno1" == "yes" || "$yesorno1" == "y" ]]; then
    echo "Installing zrok..."
 if [ -f /usr/bin/zrok ]; then
-
    echo "zrok is installed."
    exit 1
 else
