@@ -38,8 +38,25 @@ if grep -qi "Fedora" /etc/*release; then
                     return 1
                  fi
                  break
+                 elif [ "$pick_an_option2" == "2" ]; then
+                   while true; do
+                     read -p "Set your custom amount of parallel downloads allowed: " pick_an_number
+                       if ! grep "${1,10}" $pick_an_number; then
+                         echo "Not a number try again..."
+                         return 1
+                       else
+                         sudo echo "max_parallel_downloads=$pick_an_number" >> /etc/dnf.conf
+                         break
+                       fi
+                     done
+                    else
+                        echo "invaild option try again..."
+                        sleep 0.2
+                        clear
+                    fi
+            done
 
-          else
+           else
               echo "Invaild option try again..."
               sleep 0.2
               clear
