@@ -21,6 +21,30 @@ if grep -qi "Fedora" /etc/*release; then
                                clear
                                read -p "Do want to enable parallel downloads ( allows to install multiple packages simultaneously (yes/no/y/n): " yesorno2
            if [[ "$yesorno2" == "yes" || "$yesorno2" == "y" ]]; then
+           while true; do
+             clear
+             echo "
+             1. Default Max Parallel Downloads \"3\"
+             2. Set the custom amount of Parallel Downloads allowed
+             "
+             read -p "Pick an option [1-2]: " pick_an_option2
+               if [ "$pick_an_option2" == "1" ]; then
+                 echo "Setting max parallel downloads to 3"
+                 if ! grep "max_parallel_downloads=3" /etc/dnf/dnf.conf; then
+                   sudo echo "max_parallel_downloads=3" >> /etc/dnf/dnf.conf
+                   break
+                 else
+                    echo "max_parrallel_downloads was already added to \"/etc/dnf/dnf.conf\""
+                    return 1
+                 fi
+                 break
+
+          else
+              echo "Invaild option try again..."
+              sleep 0.2
+              clear
+           fi
+           done
            else
               echo "Invaild option try again..."
               sleep 0.2
