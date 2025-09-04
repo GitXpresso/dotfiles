@@ -1,10 +1,67 @@
 #!/bin/bash
 test_function(){
+is_fast=$(grep -q "fastestmirror=True" /etc/dnf/dnf.conf && echo yes || echo no)
+is_yes=$(grep -q "defaultyes=True" /etc/dnf/dnf.conf && echo yes || echo no)
+is_delta=$(grep -q "deltarpm=True" /etc/dnf/dnf.conf && echo yes || echo no)
+is_cache=$(grep -q "keepcache=True" /etc/dnf/dnf.conf && echo yes || echo no)
 echo "
-1. Add Fast Repositories (Allows faster dnf installs)
-2. Enable Default Prompt to \"Y\" instead of \"N\" when installing packages
-3. Enable DeltaRPM ( Downloads only the differences between package versions, saving bandwidth )
-4. Set Keep Cache value to true ( Keeps the downloaded packages in cache, useful for reinstalls or debugging )
+1. Add Fast Repositories (Allows faster dnf installs) [ Available = "$is_fast" ] 
+2. Enable Default Prompt to \"Y\" instead of \"N\" when installing packages [ Available = "$is_yes" ] 
+3. Enable DeltaRPM ( Downloads only the differences between package versions, saving bandwidth ) [ Available = "$is_delta" ] 
+4. Set Keep Cache value to true ( Keeps the downloaded packages in cache, useful for reinstalls or debugging ) [ Available = "$is_cache" ]
+"
+read -p "Select more than one [Main] configuration [e.g. 1 3 or 1,2]: " pick_an_configuration
+choices=$( echo $pick_an_configuration | tr ',' ' ')
+for choice in $choices; do
+   case "choice" in
+     1)
+     if [ "$is_fast" == "no" ]; then
+       touch dnf1.tmp ~/
+       if ! grep -q "[main]" /etc/dnf/dnf.conf; then
+       echo "[main]" >> ~/dnf1.tmp
+       fi
+       echo "fastestmirror=True" >> ~/dnf1.tmp
+       rm -f ~/dnf1.tmp
+     fi
+     if [ "$is_fast" == "yes" ]; then
+       echo "already configured executing other options"
+     fi
+     ;;
+     2)
+     if [ "$is_yes" == "no" ]; then
+     touch dnf1.tmp ~/
+       if ! grep -q "[main]" /etc/dnf/dnf.conf; then
+       echo "[main]" >> ~/dnf.tmp
+       fi
+       echo "fastestmirror=True" | tee -a ~/dnf.tmp
+       rm -f ~/dnf.tmp
+     fi
+     ;;
+     3)
+     if [ "$if_delta" == "no" ]; then
+      touch dnf1.tmp ~/
+     if ! grep -q "[main]" /etc/dnf/dnf.conf; then
+       echo "[main]" >> ~/dnf1.tmp
+     fi
+     echo "rpmdelta=True" | tee -a ~/dnf1.tmp
+     rm -f ~/dnf1.tmp
+     if [ "$if_delta" == "yes" ]; then
+       echo "delta was already configured."
+     fi
+     ;;
+     4)
+     if [ "$if_cache" == "no" ]; then
+       touch dnf1.tmp ~/
+     if ! grep -q "[main]" /etc/dnf/dnf.conf; then
+       echo "[main]" >> ~/dnf1.tmp
+     fi
+     echo "keepcache=True" | tee -a ~/dnf1.tmp
+     rm -f ~/dnf1.tmp
+     if [ "$if_cache" == "yes" ]; then
+       echo "keepcache was already configured."
+     fi
+     ;;
+esac
 }
 case "$1" in
    -test) 
