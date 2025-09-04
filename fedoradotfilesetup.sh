@@ -4,11 +4,12 @@ is_fast=$(grep -q "fastestmirror=True" /etc/dnf/dnf.conf && echo yes || echo no)
 is_yes=$(grep -q "defaultyes=True" /etc/dnf/dnf.conf && echo yes || echo no)
 is_delta=$(grep -q "deltarpm=True" /etc/dnf/dnf.conf && echo yes || echo no)
 is_cache=$(grep -q "keepcache=True" /etc/dnf/dnf.conf && echo yes || echo no)
-echo "
-1. Add Fast Repositories (Allows faster dnf installs) [ Available = "$is_fast" ] 
-2. Enable Default Prompt to \"Y\" instead of \"N\" when installing packages [ Available = "$is_yes" ] 
-3. Enable DeltaRPM ( Downloads only the differences between package versions, saving bandwidth ) [ Available = "$is_delta" ] 
-4. Set Keep Cache value to true ( Keeps the downloaded packages in cache, useful for reinstalls or debugging ) [ Available = "$is_cache" ]
+
+  echo "
+1. Add Fast Repositories (Allows faster dnf installs) [ Available = $is_fast ] 
+2. Enable Default Prompt to \"Y\" instead of \"N\" when installing packages [ Available = $is_yes ] 
+3. Enable DeltaRPM (Downloads only the differences between package versions, saving bandwidth) [ Available = $is_delta ] 
+4. Set Keep Cache value to true (Keeps the downloaded packages in cache, useful for reinstalls or debugging) [ Available = $is_cache ]
 "
 read -p "Select more than one [Main] configuration [e.g. 1 3 or 1,2]: " pick_an_configuration
 choices=$( echo $pick_an_configuration | tr ',' ' ')
@@ -17,13 +18,7 @@ for choice in $choices; do
    
      1)
        if [ "$is_fast" == "no" ]; then
-         touch ~/dnf.tmp
-         if ! grep -q "[main]" /etc/dnf/dnf.conf; then
-           echo "[main]" >> ~/dnf.tmp
-         fi
-         echo "fastestmirror=True" >> ~/dnf.tmp
-         sudo cp ~/dnf.tmp /etc/dnf/dnf.conf
-         rm -f ~/dnf.tmp
+         touch ~/dnf1.tmp
        else
          echo "Already configured, executing other options"
        fi
@@ -31,13 +26,7 @@ for choice in $choices; do
      
      2)
        if [ "$is_yes" == "no" ]; then
-         touch ~/dnf.tmp
-         if ! grep -q "[main]" /etc/dnf/dnf.conf; then
-           echo "[main]" >> ~/dnf.tmp
-         fi
-         echo "defaultyes=True" >> ~/dnf.tmp
-         sudo cp ~/dnf.tmp /etc/dnf/dnf.conf
-         rm -f ~/dnf.tmp
+         touch ~/dnf2.tmp
        else
          echo "Default prompt already enabled."
        fi
@@ -45,13 +34,7 @@ for choice in $choices; do
      
      3)
        if [ "$is_delta" == "no" ]; then
-         touch ~/dnf.tmp
-         if ! grep -q "[main]" /etc/dnf/dnf.conf; then
-           echo "[main]" >> ~/dnf.tmp
-         fi
-         echo "deltarpm=True" >> ~/dnf.tmp
-         sudo cp ~/dnf.tmp /etc/dnf/dnf.conf
-         rm -f ~/dnf.tmp
+         touch ~/dnf3.tmp
        else
          echo "DeltaRPM already configured."
        fi
@@ -59,13 +42,7 @@ for choice in $choices; do
      
      4)
        if [ "$is_cache" == "no" ]; then
-         touch ~/dnf.tmp
-         if ! grep -q "[main]" /etc/dnf/dnf.conf; then
-           echo "[main]" >> ~/dnf.tmp
-         fi
-         echo "keepcache=True" >> ~/dnf.tmp
-         sudo cp ~/dnf.tmp /etc/dnf/dnf.conf
-         rm -f ~/dnf.tmp
+         touch ~/dnf4.tmp
        else
          echo "KeepCache already configured."
        fi
@@ -77,6 +54,18 @@ for choice in $choices; do
        ;;
    esac
 done
+if [ -f ~/dnf1.tmp ]; then
+echo "fastestmirror=True" | sudo tee -a /etc/dnf/dnf.conf
+fi
+if [ -f ~/dnf2.tmp ]; then
+echo "defaultyes=True" | sudo tee -a /etc/dnf/dnf.conf
+fi
+if [ -f ~/dnf3tmp ]; then
+echo "deltarpm=True" | sudo tee -a /etc/dnf/dnf.conf
+fi
+if [ -f ~/dnf4.tmp ]; then
+echo "keepcache=True" | sudo tee -a /etc/dnf/dnf.conf
+fi
 }
 case "$1" in
    --test) 
