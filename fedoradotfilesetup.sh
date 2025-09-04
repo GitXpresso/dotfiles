@@ -21,6 +21,7 @@ if grep -qi "Fedora" /etc/*release; then
     if [[ "$pick_an_option1" == "1" ]]; then
       if ! grep -qi "fastestmirror=True" /etc/dnf/dnf.conf; then
         echo "Adding fastest mirror configuration..."
+        echo "[main]"
         echo "fastestmirror=True" >> ~/dnf.tmp
         sudo cp ~/dnf.tmp /etc/dnf/dnf.conf
         rm -f ~/dnf.tmp
