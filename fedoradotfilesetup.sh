@@ -80,9 +80,14 @@ if [ -f ~/dnf5.tmp ]; then
       clear
     while true; do
       read -p "pick an number ( limit is 20 ): " pick_an_number
-        if echo "$pick_an_number" || grep -qi '^[0-9]'; then
+      if [ "$pick_an_number" -gt 20 ];
+        echo "You've entered a number that is higher than 20, try again..."
+        read -p "pick an number ( limit is 20 ): " pick_an_number
+       else
+         if echo "$pick_an_number" || grep -qi '^[0-9]'; then
            echo "max_parrell_downloads=$pick_an_number" | sudo tee -a /etc/dnf/dnf.conf
-        fi
+         fi
+       fi
         else
            echo "Not a number, try again..."
         fi
@@ -90,18 +95,20 @@ if [ -f ~/dnf5.tmp ]; then
      elif [[ "$pick_an_option" == "2" ]]; then
           echo "max_parrell_downloads=3" | sudo tee -a /etc/dnf/dnf.conf
      fi
-  else
+   else
      echo "invaild option, try again..."
+     sleep 0.2
+     clear
      fi
   done
 fi
 }
+if grep -qi "Fedora" /etc/*release; then
 case "$1" in
    --test) 
    test_function
    ;;
 esac
-if grep -qi "Fedora" /etc/*release; then
   if rpm -q ncurses &>/dev/null; then
     echo "Ncurses is installed"
     clear
@@ -110,7 +117,7 @@ if grep -qi "Fedora" /etc/*release; then
     sudo dnf update -y
     sudo dnf install -y ncurses
   fi
-
 else
    echo "not using fedora, exiting..."
    exit 1
+fi
