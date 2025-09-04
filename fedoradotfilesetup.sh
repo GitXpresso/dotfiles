@@ -61,6 +61,8 @@ if grep -qi "Fedora" /etc/*release; then
         if [[ "$pick_an_option2" == "1" ]]; then
           if ! grep -q "max_parallel_downloads=3" /etc/dnf/dnf.conf; then
             echo "Setting max parallel downloads to 3..."
+            echo "[main]" >> ~/dnf1.tmp
+            echo "fastestmirror=True" >> ~/dnf1.tmp
             echo "max_parallel_downloads=3" >> ~/dnf1.tmp
             sudo cp ~/dnf1.tmp /etc/dnf/dnf.conf
             rm -f ~/dnf1.tmp
@@ -71,8 +73,10 @@ if grep -qi "Fedora" /etc/*release; then
         elif [[ "$pick_an_option2" == "2" ]]; then
           while true; do
             read -p "Set your custom amount of parallel downloads allowed: " pick_an_number
-            if [[ "$pick_an_number" =~ ^[0-9]+$ ]]; then
+            if echo "$pick_an_number" | grep '^[0-9]'; then
               echo "Setting max_parallel_downloads to $pick_an_number..."
+              echo "[main]" >> ~/dnf.tmp
+              echo "fastestmirror=True" >> ~/dnf.tmp
               echo "max_parallel_downloads=$pick_an_number" >> ~/dnf.tmp
               sudo cp ~/dnf.tmp /etc/dnf/dnf.conf
               rm ~/dnf.tmp
