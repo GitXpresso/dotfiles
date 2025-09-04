@@ -79,12 +79,8 @@ for choice in $choices; do
 done
 }
 case "$1" in
-   -test) 
+   --test) 
    test_function
-   ;;
-   *)
-   echo "Invalid option"
-   exit 1
    ;;
 esac
 if grep -qi "Fedora" /etc/*release; then
