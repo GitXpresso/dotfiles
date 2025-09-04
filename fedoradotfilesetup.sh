@@ -69,6 +69,32 @@ fi
 if [ -f ~/dnf4.tmp ]; then
 echo "keepcache=True" | sudo tee -a /etc/dnf/dnf.conf
 fi
+if [ -f ~/dnf5.tmp ]; then
+  while true; do
+    echo "
+    1. Set custom limit to parrel; Downloads ( max limit: 20 )
+    2. Default Parrell downloads: 3
+    "
+    read -p "pick an option [1-3]: " pick_an_option
+    if [[ "$pick_an_option" == "1" ]]; then
+      clear
+    while true; do
+      read -p "pick an number ( limit is 20 ): " pick_an_number
+        if echo "$pick_an_number" || grep -qi '^[0-9]'; then
+           echo "max_parrell_downloads=$pick_an_number" | sudo tee -a /etc/dnf/dnf.conf
+        fi
+        else
+           echo "Not a number, try again..."
+        fi
+     done
+     elif [[ "$pick_an_option" == "2" ]]; then
+          echo "max_parrell_downloads=3" | sudo tee -a /etc/dnf/dnf.conf
+     fi
+  else
+     echo "invaild option, try again..."
+     fi
+  done
+fi
 }
 case "$1" in
    --test) 
