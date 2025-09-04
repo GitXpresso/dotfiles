@@ -11,18 +11,7 @@ if grep -qi "Fedora" /etc/*release; then
   while true; do
     read -p "Do you want to add some things to /etc/dnf/dnf.conf? (yes/no/y/n): " yesorno1
     if [[ "$yesorno1" == "yes" || "$yesorno1" == "y" ]]; then
-      break
-    elif [[ "$yesorno1" == "no" || "$yesorno1" == "n" ]]; then
-      echo "Not making any changes to dnf.conf"
-      exit 0
-    else
-      echo "Invalid option, try again..."
-      sleep 0.2
-      clear
-    fi
-  done
-
-  while true; do
+      while true; do
     echo "
 1. Add Fast Repositories (Allows faster dnf installs)
 2. Enable Default Prompt to \"Y\" instead of \"N\" when installing packages
@@ -39,7 +28,6 @@ if grep -qi "Fedora" /etc/*release; then
         echo "Fastest mirror configuration already added."
       fi
       break
-
     elif [[ "$pick_an_option1" == "2" ]]; then
       if ! grep -qi "defaultyes=True" /etc/dnf/dnf.conf; then
         echo "Enabling default 'yes' prompt..."
@@ -50,7 +38,6 @@ if grep -qi "Fedora" /etc/*release; then
         echo "Default prompt already set to 'yes'."
       fi
       break
-
     else
       echo "Invalid option, try again..."
       sleep 0.2
@@ -80,7 +67,6 @@ if grep -qi "Fedora" /etc/*release; then
             echo "max_parallel_downloads=3 already set."
           fi
           break 2  # Break out of both loops after setting
-
         elif [[ "$pick_an_option2" == "2" ]]; then
           while true; do
             read -p "Set your custom amount of parallel downloads allowed: " pick_an_number
@@ -103,11 +89,15 @@ if grep -qi "Fedora" /etc/*release; then
           clear
         fi
       done
-
-    elif [[ "$yesorno2" == "no" || "$yesorno2" == "n" ]]; then
-      echo "Parallel downloads not enabled."
-      break
-
+    elif [[ "$yesorno1" == "no" || "$yesorno1" == "n" ]]; then
+      echo "Not making any changes to dnf.conf"
+      exit 0
+    else
+      echo "Invalid option, try again..."
+      sleep 0.2
+      clear
+    fi
+  done
     else
       echo "Invalid option, try again..."
       sleep 0.2
