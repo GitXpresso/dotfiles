@@ -1,4 +1,20 @@
 #!/bin/bash
+test_function(){
+echo "
+1. Add Fast Repositories (Allows faster dnf installs)
+2. Enable Default Prompt to \"Y\" instead of \"N\" when installing packages
+3. Enable DeltaRPM ( Downloads only the differences between package versions, saving bandwidth )
+4. Set Keep Cache value to true ( Keeps the downloaded packages in cache, useful for reinstalls or debugging )
+}
+case "$1" in
+   -test) 
+   test_function
+   ;;
+   *)
+   echo "Invalid option"
+   exit 1
+   ;;
+esac
 if grep -qi "Fedora" /etc/*release; then
   if rpm -q ncurses &>/dev/null; then
     echo "Ncurses is installed"
