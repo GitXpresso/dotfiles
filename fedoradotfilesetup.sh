@@ -27,6 +27,7 @@ for choice in $choices; do
        echo "already configured executing other options"
      fi
      ;;
+     
      2)
      if [ "$is_yes" == "no" ]; then
      touch dnf1.tmp ~/
@@ -37,6 +38,7 @@ for choice in $choices; do
        rm -f ~/dnf.tmp
      fi
      ;;
+     
      3)
      if [ "$if_delta" == "no" ]; then
       touch dnf1.tmp ~/
@@ -49,6 +51,7 @@ for choice in $choices; do
        echo "delta was already configured."
      fi
      ;;
+     
      4)
      if [ "$if_cache" == "no" ]; then
        touch dnf1.tmp ~/
@@ -61,6 +64,11 @@ for choice in $choices; do
        echo "keepcache was already configured."
      fi
      ;;
+     *)
+     echo "invaild option."
+     exit 1
+     ;;
+   
 esac
 }
 case "$1" in
