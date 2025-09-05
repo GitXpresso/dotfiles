@@ -106,9 +106,20 @@ done
   fi
 done
 fi
-if_rpmfree=$(dnf repolist enabled | grep rpmfusion-free | echo yes | echo no)
-if_rpmnon_free=$(dnf repolist enabled | grep rpmfusion-nonfree | echo | echo no)
+rpmfusion(){
+if dnf repolist enabled | grep -q rpmfusion-free; then
+  if_rpmfree="yes"
+else
+  if_rpmfree="no"
+fi
 
+if dnf repolist enabled | grep -q rpmfusion-nonfree; then
+  if_rpmnon_free="yes"
+else
+  if_rpmnon_free="no"
+fi
+}
+rpmfusion
   while true; do
     read -p "Install RPM Fusion (free & non-free)? Enter 1 to list packages (yes/no/y/n): " yesorno4
      if [[ "$yesorno4" == "yes" || "$yesorno4" == "y" ]]; then
