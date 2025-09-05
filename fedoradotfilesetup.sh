@@ -1,6 +1,6 @@
 #!/bin/bash
 start(){
-number='^[0-9]'
+number='^[0-9]\+$'
 is_fast=$(grep -q "fastestmirror=True" /etc/dnf/dnf.conf && echo yes || echo no)
 is_yes=$(grep -q "defaultyes=True" /etc/dnf/dnf.conf && echo yes || echo no)
 is_delta=$(grep -q "deltarpm=True" /etc/dnf/dnf.conf && echo yes || echo no)
