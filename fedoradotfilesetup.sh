@@ -2,11 +2,12 @@
 red=$(tput setaf 1)
 green=$(tput setaf 2)
 no_color=$(tput sgr0)
+gray=$(tput setaf 250)
 color_status() {
   if [ "$1" == "yes" ]; then
-    echo "${green}yes${no_color}"
+    echo "${green}Enabled${no_color}"
   else
-    echo "${red}no${no_color}"
+    echo "${red}Disabled${no_color}"
   fi
 }
 
@@ -16,13 +17,13 @@ is_fast=$(grep -q "fastestmirror=True" /etc/dnf/dnf.conf && echo yes || echo no)
 is_yes=$(grep -q "defaultyes=True" /etc/dnf/dnf.conf && echo yes || echo no)
 is_delta=$(grep -q "deltarpm=True" /etc/dnf/dnf.conf && echo yes || echo no)
 is_cache=$(grep -q "keepcache=True" /etc/dnf/dnf.conf && echo yes || echo no)
-is_parrell_downloads=$(grep -q "max_parallel_downloads=$number" /etc/dnf/dnf.conf && echo yes || echo no)
+is_parallel_downloads=$(grep -q "max_parallel_downloads=$number" /etc/dnf/dnf.conf && echo yes || echo no)
 echo "
-1. Add Fast Repositories (Allows faster dnf installs) [ Available = $(color_status $is_fast) ] 
-2. Enable Default Prompt to \"Y\" instead of \"N\" when installing packages [ Available = $(color_status $is_yes) ] 
-3. Enable DeltaRPM (Downloads only the differences between package versions, saving bandwidth) [ Available = $(color_status $is_delta) ] 
-4. Set Keep Cache value to true (Keeps the downloaded packages in cache, useful for reinstalls or debugging) [ Available = $(color_status $is_cache) ]
-5. Enable Parrell Downloads ( installs multiple packages simultaneously ) [ Available = $(color_status $is_parrell_downloads) ]
+1. Add Fast Repositories (Allows faster dnf installs) [ ${gray}Status${no_color} = $(color_status $is_fast) ] 
+2. Enable Default Prompt to \"Y\" instead of \"N\" when installing packages. [ ${gray}Status${no_color} = $(color_status $is_yes) ] 
+3. Enable DeltaRPM (Downloads only the differences between package versions.) [ ${gray}Status${no_color} = $(color_status $is_delta) ] 
+4. Set Keep Cache value to true (Keeps the downloaded packages in cache.) [ ${gray}Status${no_color} = $(color_status $is_cache) ]
+5. Enable Parallel Downloads ( installs multiple packages simultaneously.) [ ${gray}Status${no_color} = $(color_status $is_parallel)]
 "
 read -p "Select more than one [Main] configuration [e.g. 1 3 or 1,2]: " pick_an_configuration
 choices=$( echo $pick_an_configuration | tr ',' ' ')
@@ -58,6 +59,13 @@ for choice in $choices; do
          touch ~/dnf4.tmp
        else
          echo "KeepCache already configured."
+       fi
+       ;;
+     5)
+       if [ "$is_parallel" == "no" ]; then
+         touch ~/dnf5.tmp
+       else
+          echo "KeepCache Already configured"
        fi
        ;;
      
