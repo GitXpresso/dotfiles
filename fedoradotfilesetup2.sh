@@ -230,23 +230,25 @@ done
       if [[ "$yesorno" == "1" ]]; then
        while true; do 
         echo "
-        1. Floorp
-        2. Librewolf ( Privacy-focused browser )
-        3. Waterfox ( fork of firefox )
-        4. Tor ( The onion routing )
-        5. Icecat
-        6. Mullvad ( Kinda Like of tor but using a vpn instead ) 
-        7. Zen Novnc ( customizable browser ) 
-        8. Pale Moon ( brings back the old firefox UI )
-        9. Midori NoVNC 
-        10. Pulse ( Kinda of like zen but longer maintained. ) 
-        11. Basilisk 
+        1 Firefox ( a browser that claims to \"rebuild the internet\")
+        2. Floorp
+        3. Librewolf ( Privacy-focused browser )
+        4. Waterfox ( fork of firefox )
+        5. Tor ( The onion routing )
+        6. Icecat
+        8. Mullvad ( Kinda Like of tor but using a vpn instead ) 
+        9. Zen Novnc ( customizable browser ) 
+        10. Pale Moon ( brings back the old firefox UI )
+        11. Midori NoVNC 
+        12. Pulse ( Kinda of like zen but longer maintained. ) 
+        13. Basilisk 
         "
-        read -p "Pick an firefox or firefox-based browser [1-11]: " firefox_browsers
+        read -p "Pick an firefox or firefox-based browser to install. [1-11]: " firefox_browsers
         for browser in ${firefox_browsers}; do
            case in ${firefox_browsers}
              1)
-
+             if [ ! /usr/bin/firefox ]; then
+              
              ;;
 
              2)
@@ -286,6 +288,14 @@ done
              ;;
 
              11)
+
+             ;;
+
+             12)
+
+             ;;
+
+             13)
 
              ;;
 
