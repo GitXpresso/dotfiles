@@ -1,9 +1,7 @@
 #!/bin/bash
-
-
-no_color=$(tput sgr0)
 red=$(tput setaf 1)
 green=$(tput setaf 2)
+no_color=$(tput sgr0)
 color_status() {
   if [ "$1" == "yes" ]; then
     echo "${green}yes${no_color}"
@@ -122,7 +120,7 @@ if dnf repolist enabled | grep rpmfusion-free; then
   if_rpmfree="yes"
 else
   if_rpmfree="no"
-if_rpmnon_free
+fi
 if dnf repolist enabled | grep rpmfusion-nonfree; then
   if_rpmnonfree="yes"
 else
