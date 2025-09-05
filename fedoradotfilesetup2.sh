@@ -228,17 +228,72 @@ done
       "
       read -p "Pick an browser [1-2]: " pick_a_browser
       if [[ "$yesorno" == "1" ]]; then
-        while true; do
+       while true; do 
         echo "
         1. Floorp
         2. Librewolf ( Privacy-focused browser )
         3. Waterfox ( fork of firefox )
         4. Tor ( The onion routing )
         5. Icecat
-        6.
+        6. Mullvad ( Kinda Like of tor but using a vpn instead ) 
+        7. Zen Novnc ( customizable browser ) 
+        8. Pale Moon ( brings back the old firefox UI )
+        9. Midori NoVNC 
+        10. Pulse ( Kinda of like zen but longer maintained. ) 
+        11. Basilisk 
         "
-        read -p "Pick an firefox browser [1-11]: " firefox_option
-        if
+        read -p "Pick an firefox or firefox-based browser [1-11]: " firefox_browsers
+        for browser in ${firefox_browsers}; do
+           case in ${firefox_browsers}
+             1)
+
+             ;;
+
+             2)
+
+             ;;
+
+             3)
+
+             ;;
+
+             4)
+
+             ;;
+
+             5)
+
+             ;;
+
+             6)
+
+             ;;
+
+             7)
+
+             ;;
+
+             8)
+
+             ;;
+
+             9)
+
+             ;;
+
+             10)
+
+             ;;
+
+             11)
+
+             ;;
+
+             *)
+             echo "Invalid option, try again..."
+             ;;
+         esac
+      done   
         else
            echo "Invalid option, try again..."
         fi
