@@ -106,6 +106,81 @@ done
   fi
 done
 fi
+if_rpmfree=$(dnf repolist enabled | grep rpmfusion-free | echo yes | echo no)
+if_rpmnon_free=$(dnf repolist enabled | grep rpmfusion-nonfree | echo | echo no)
+
+  while true; do
+    read -p "Install RPM Fusion (free & non-free)? Enter 1 to list packages (yes/no/y/n): " yesorno4
+     if [[ "$yesorno4" == "yes" || "$yesorno4" == "y" ]]; then
+       echo "Checking if rpm fusion non-free or free is already installed."
+         if [ "$if_rpmfree" == "yes" ]; then
+           echo "RPM fusion free already installed, skipping..."
+           sleep 0.2
+           clear
+         else
+           echo "RPM  Fusion free not installed, installing..."
+           sudo dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+           sleep 0.2 
+           clear
+         fi
+         if [ "$if_rpmnon_free" == "yes" ]; then
+           echo "RPM fusion non-free already installed."
+           sleep 0.2
+           clear
+           echo "Done installing RPM Fusion."
+           break
+           sleep 0.2
+           clear
+         else
+           echo "RPM Fusion non-free not installed, installing..."
+           sudo dnf install -y https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+           sleep 0.2
+           clear
+           echo "Done installing RPM Fusion repositories."
+           sleep 0.2 
+           clear
+           break
+         fi
+         elif [[ "$yesorno4" == "no" || "$yesorno4" == "n" ]]; then
+             echo "Not installing RPM-Fusion repositories."
+             break
+             exit 1
+         fi
+         elif [[ "$yesorno4" == "1" ]]; then
+              while true; do
+               echo "
+               1. Free
+               2. Non-Free
+               "
+               read -p "Pick an RPM-Fusion reposiory to list: " pick_an_repository
+                 if [[ "$pick_an_repository" == "1" ]]; then
+                   echo "Listing All RPM Fusion repository."
+                   clear
+                   free_packages=$(curl -fsSL https://raw.githubusercontent.com/GitXpresso/dotfiles/refs/heads/main/rpm-fusion-free-list.txt)
+                   echo "$free_packages"
+                   read -p "Press any key to clear..."
+                   clear
+                elif [[ "$pick_an_repository" == "2" ]]; then
+                   echo "Listing All RPM Fusion repository."
+                   clear
+                   non_free_packages=$(curl -fsSL https://raw.githubusercontent.com/GitXpresso/dotfiles/refs/heads/main/rpm-fusion-non-free-list.txt)
+                   echo "$non_free_packages"
+                   read -p "Press any key to clear..."
+                   clear
+              else
+                 echo "invaild option, try again."
+                 sleep 0.2 
+                 clear
+              fi
+            done
+
+              
+        else
+          echo "Invaild option, try again..."
+          sleep 0.2
+          clear
+        fi
+     done
 }
 if grep -qi "Fedora" /etc/*release; then
 #case "$1" in
