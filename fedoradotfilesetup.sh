@@ -6,8 +6,7 @@ is_yes=$(grep -q "defaultyes=True" /etc/dnf/dnf.conf && echo yes || echo no)
 is_delta=$(grep -q "deltarpm=True" /etc/dnf/dnf.conf && echo yes || echo no)
 is_cache=$(grep -q "keepcache=True" /etc/dnf/dnf.conf && echo yes || echo no)
 is_parrell_downloads=$(grep -q "max_parallel_downloads=$number" /etc/dnf/dnf.conf && echo yes || echo no)
-echo 
-"
+echo "
 1. Add Fast Repositories (Allows faster dnf installs) [ Available = $is_fast ] 
 2. Enable Default Prompt to \"Y\" instead of \"N\" when installing packages [ Available = $is_yes ] 
 3. Enable DeltaRPM (Downloads only the differences between package versions, saving bandwidth) [ Available = $is_delta ] 
