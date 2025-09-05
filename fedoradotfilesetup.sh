@@ -1,15 +1,9 @@
 #!/bin/bash
-red=$(tput setaf 1)
-green=$(tput setaf 2)
+
 
 no_color=$(tput sgr0)
-start(){
-number='^[0-9]\+$'
-is_fast=$(grep -q "fastestmirror=True" /etc/dnf/dnf.conf && echo yes || echo no)
-is_yes=$(grep -q "defaultyes=True" /etc/dnf/dnf.conf && echo yes || echo no)
-is_delta=$(grep -q "deltarpm=True" /etc/dnf/dnf.conf && echo yes || echo no)
-is_cache=$(grep -q "keepcache=True" /etc/dnf/dnf.conf && echo yes || echo no)
-is_parrell_downloads=$(grep -q "max_parallel_downloads=$number" /etc/dnf/dnf.conf && echo yes || echo no)
+red=$(tput setaf 1)
+green=$(tput setaf 2)
 color_status() {
   if [ "$1" == "yes" ]; then
     echo "${green}yes${no_color}"
@@ -18,6 +12,13 @@ color_status() {
   fi
 }
 
+start(){
+number='^[0-9]\+$'
+is_fast=$(grep -q "fastestmirror=True" /etc/dnf/dnf.conf && echo yes || echo no)
+is_yes=$(grep -q "defaultyes=True" /etc/dnf/dnf.conf && echo yes || echo no)
+is_delta=$(grep -q "deltarpm=True" /etc/dnf/dnf.conf && echo yes || echo no)
+is_cache=$(grep -q "keepcache=True" /etc/dnf/dnf.conf && echo yes || echo no)
+is_parrell_downloads=$(grep -q "max_parallel_downloads=$number" /etc/dnf/dnf.conf && echo yes || echo no)
 echo "
 1. Add Fast Repositories (Allows faster dnf installs) [ Available = $(color_status $is_fast) ] 
 2. Enable Default Prompt to \"Y\" instead of \"N\" when installing packages [ Available = $(color_status $is_yes) ] 
@@ -117,8 +118,16 @@ done
   fi
 done
 fi
-if_rpmfree=$(dnf repolist enabled | grep rpmfusion-free | echo yes | echo no)
-if_rpmnon_free=$(dnf repolist enabled | grep rpmfusion-nonfree | echo | echo no)
+if dnf repolist enabled | grep rpmfusion-free; then
+  if_rpmfree="yes"
+else
+  if_rpmfree="no"
+if_rpmnon_free
+if dnf repolist enabled | grep rpmfusion-nonfree; then
+  if_rpmnonfree="yes"
+else
+  if_rpmnonfree="no"
+fi
 
   while true; do
     read -p "Install RPM Fusion (free & non-free)? Enter 1 to list packages (yes/no/y/n): " yesorno4
@@ -192,7 +201,7 @@ if_rpmnon_free=$(dnf repolist enabled | grep rpmfusion-nonfree | echo | echo no)
       clear
     fi
 done
- }
+}
 if grep -qi "Fedora" /etc/*release; then
 #case "$1" in
    #--test) 
