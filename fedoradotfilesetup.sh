@@ -1,5 +1,5 @@
 #!/bin/bash
-test_function(){
+start(){
 number='^[0-9]'
 is_fast=$(grep -q "fastestmirror=True" /etc/dnf/dnf.conf && echo yes || echo no)
 is_yes=$(grep -q "defaultyes=True" /etc/dnf/dnf.conf && echo yes || echo no)
@@ -104,11 +104,11 @@ if [ -f ~/dnf5.tmp ]; then
 fi
 }
 if grep -qi "Fedora" /etc/*release; then
-case "$1" in
-   --test) 
-   test_function
-   ;;
-esac
+#case "$1" in
+   #--test) 
+   #test_function
+   #;;
+#esac
   if rpm -q ncurses &>/dev/null; then
     echo "Ncurses is installed"
     clear
@@ -117,6 +117,7 @@ esac
     sudo dnf update -y
     sudo dnf install -y ncurses
   fi
+  start
 else
    echo "not using fedora, exiting..."
    exit 1
