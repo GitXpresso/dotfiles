@@ -76,31 +76,35 @@ if [ -f ~/dnf5.tmp ]; then
     2. Default Parrell downloads: 3
     "
     read -p "pick an option [1-3]: " pick_an_option
-    if [[ "$pick_an_option" == "1" ]]; then
+ if [ "$pick_an_option" == "1" ]; then
+   while true; do
+    read -p "Pick a number (limit is 20): " pick_an_number
+
+  # Check if input is a valid integer
+    if echo "$pick_an_number" | grep -q '^[0-9]\+$'; then
+      if [ "$pick_an_number" -le 20 ]; then
+        echo "max_parallel_downloads=$pick_an_number" | sudo tee -a /etc/dnf/dnf.conf
+        break
+      else
+        echo "You've entered a number higher than 20, try again..."
+        sleep 0.5
+        clear
+      fi
+    else
+      echo "Not a number, try again..."
+      sleep 0.5
       clear
-    while true; do
-      read -p "pick an number ( limit is 20 ): " pick_an_number
-      if [ "$pick_an_number" -gt 20 ];
-        echo "You've entered a number that is higher than 20, try again..."
-        read -p "pick an number ( limit is 20 ): " pick_an_number
-       else
-         if echo "$pick_an_number" || grep -qi '^[0-9]'; then
-           echo "max_parrell_downloads=$pick_an_number" | sudo tee -a /etc/dnf/dnf.conf
-         fi
-       fi
-        else
-           echo "Not a number, try again..."
-        fi
-     done
-     elif [[ "$pick_an_option" == "2" ]]; then
-          echo "max_parrell_downloads=3" | sudo tee -a /etc/dnf/dnf.conf
-     fi
-   else
-     echo "invaild option, try again..."
+   fi
+done
+  elif [ "$pick_an_option" == "2" ]; then
+      echo "max_parallel_downloads=3" | sudo -tee -a /etc/dnf/dnf.conf
+      break
+  else
+     echo "Invaild input, try again..."
      sleep 0.2
      clear
-     fi
-  done
+  fi
+done
 fi
 }
 if grep -qi "Fedora" /etc/*release; then
