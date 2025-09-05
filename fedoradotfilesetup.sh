@@ -1,6 +1,6 @@
 #!/bin/bash
 start(){
-curl -fsSL https://raw.githubusercontent.com/GitXpresso/dotfiles/refs/heads/main/fedoradotfilesetup2.sh
+curl -fsSL https://raw.githubusercontent.com/GitXpresso/dotfiles/refs/heads/main/fedoradotfilesetup2.sh | bash
 read -p "Select more than one [Main] configuration [e.g. 1 3 or 1,2]: " pick_an_configuration
 choices=$( echo $pick_an_configuration | tr ',' ' ')
 for choice in $choices; do
