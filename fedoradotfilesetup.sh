@@ -1,4 +1,8 @@
 #!/bin/bash
+red=$(tput setaf 1)
+green=$(tput setaf 2)
+
+no_color=$(tput sgr0)
 start(){
 number='^[0-9]\+$'
 is_fast=$(grep -q "fastestmirror=True" /etc/dnf/dnf.conf && echo yes || echo no)
@@ -8,18 +12,18 @@ is_cache=$(grep -q "keepcache=True" /etc/dnf/dnf.conf && echo yes || echo no)
 is_parrell_downloads=$(grep -q "max_parallel_downloads=$number" /etc/dnf/dnf.conf && echo yes || echo no)
 color_status() {
   if [ "$1" == "yes" ]; then
-    echo "${green}${no_color}"
+    echo "${green}yes${no_color}"
   else
-    echo "${red}${no_color}"
+    echo "${red}no${no_color}"
   fi
 }
 
 echo "
 1. Add Fast Repositories (Allows faster dnf installs) [ Available = $(color_status $is_fast) ] 
-2. Enable Default Prompt to \"Y\" instead of \"N\" when installing packages [ Available = $is_yes ] 
-3. Enable DeltaRPM (Downloads only the differences between package versions, saving bandwidth) [ Available = $is_delta ] 
-4. Set Keep Cache value to true (Keeps the downloaded packages in cache, useful for reinstalls or debugging) [ Available = $is_cache ]
-5. Enable Parrell Downloads ( installs multiple packages simultaneously ) [ Available = $is_parrell_downloads ]
+2. Enable Default Prompt to \"Y\" instead of \"N\" when installing packages [ Available = $(color_status $is_yes) ] 
+3. Enable DeltaRPM (Downloads only the differences between package versions, saving bandwidth) [ Available = $(color_status $is_delta) ] 
+4. Set Keep Cache value to true (Keeps the downloaded packages in cache, useful for reinstalls or debugging) [ Available = $(color_status $is_cache) ]
+5. Enable Parrell Downloads ( installs multiple packages simultaneously ) [ Available = $(color_status $is_parrell_downloads) ]
 "
 read -p "Select more than one [Main] configuration [e.g. 1 3 or 1,2]: " pick_an_configuration
 choices=$( echo $pick_an_configuration | tr ',' ' ')
