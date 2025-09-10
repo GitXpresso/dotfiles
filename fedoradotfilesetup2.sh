@@ -15,13 +15,11 @@ start(){
 number='^[0-9]\+$'
 is_fast=$(grep -q "fastestmirror=True" /etc/dnf/dnf.conf && echo yes || echo no)
 is_yes=$(grep -q "defaultyes=True" /etc/dnf/dnf.conf && echo yes || echo no)
-is_delta=$(grep -q "deltarpm=True" /etc/dnf/dnf.conf && echo yes || echo no)
 is_cache=$(grep -q "keepcache=True" /etc/dnf/dnf.conf && echo yes || echo no)
 is_parallel_downloads=$(grep -q "max_parallel_downloads=$number" /etc/dnf/dnf.conf && echo yes || echo no)
 echo "
 1. Add Fast Repositories (Allows faster dnf installs) [ ${gray}Status${no_color} = $(color_status $is_fast) ] 
 2. Enable Default Prompt to \"Y\" instead of \"N\" when installing packages. [ ${gray}Status${no_color} = $(color_status $is_yes) ] 
-3. Enable DeltaRPM (Downloads only the differences between package versions.) [ ${gray}Status${no_color} = $(color_status $is_delta) ] 
 4. Set Keep Cache value to true (Keeps the downloaded packages in cache.) [ ${gray}Status${no_color} = $(color_status $is_cache) ]
 5. Enable Parallel Downloads ( installs multiple packages simultaneously.) [ ${gray}Status${no_color} = $(color_status $is_parallel)]
 "
@@ -47,32 +45,17 @@ for choice in $choices; do
        fi
        clear
        ;;
-     
      3)
-       if [ "$is_delta" == "no" ]; then
-         touch ~/dnf3.tmp
-       else
-         if [ "$pick_an_configuraton" == "3" ]; then
-           echo "DeltaRPM already configured."
-           return 1
-         else
-           echo "DeltaRPM already configured."   
-         fi
-       fi
-       clear
-       ;;
-     
-     4)
        if [ "$is_cache" == "no" ]; then
-         touch ~/dnf4.tmp
+         touch ~/dnf3.tmp
        else
          echo "KeepCache already configured."
        fi
        clear
        ;;
-     5)
+     4)
        if [ "$is_parallel" == "no" ]; then
-         touch ~/dnf5.tmp
+         touch ~/dnf4.tmp
        else
           echo "KeepCache Already configured"
        fi
@@ -91,13 +74,10 @@ fi
 if [ -f ~/dnf2.tmp ]; then
 echo "defaultyes=True" | sudo tee -a /etc/dnf/dnf.conf > /dev/null 2>&1
 fi
-if [ -f ~/dnf3tmp ]; then
-echo "deltarpm=True" | sudo tee -a /etc/dnf/dnf.conf > /dev/null 2>&1
-fi
-if [ -f ~/dnf4.tmp ]; then
+if [ -f ~/dnf3.tmp ]; then
 echo "keepcache=True" | sudo tee -a /etc/dnf/dnf.conf > /dev/null 2>&1
 fi
-if [ -f ~/dnf5.tmp ]; then
+if [ -f ~/dnf4.tmp ]; then
   while true; do
     echo "
     1. Set custom limit to parrel; Downloads ( max limit: 20 )
@@ -228,9 +208,14 @@ done
       "
       read -p "Pick an browser [1-2]: " pick_a_browser
       if [[ "$yesorno" == "1" ]]; then
-       while true; do 
+      if [ -f /usr/bin/firefox ]; then 
+       if_firefox="${green}yes${no_color}"
+     else
+       if_firefox="${red}no${no_color}"
+     fi
+      while true; do 
         echo "
-        1 Firefox ( a browser that claims to \"rebuild the internet\")
+        1 Firefox ( a browser that claims to \"rebuild the internet\") [ Firefox Installed = $if_firefox ]
         2. Floorp
         3. Librewolf ( Privacy-focused browser )
         4. Waterfox ( fork of firefox )
@@ -248,7 +233,8 @@ done
            case in ${firefox_browsers}
              1)
              if [ ! /usr/bin/firefox ]; then
-              
+               sudo dnf install -y firefox
+               echo "Firefox is now installed"
              ;;
 
              2)
