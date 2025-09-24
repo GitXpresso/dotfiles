@@ -246,6 +246,16 @@ done
              ;;
 
              4)
+             if [ rpm -q | grep -qw "waterfox"; then
+               echo "Waterfox is not installed, installing..."
+               waterfox_version="6.6.3"
+               wget -P ~/ https://github.com/GitXpresso/LinuxPKG/releases/download/Waterfox/waterfox-$waterfox_version-2.x86_64.rpm
+               sudo dnf install -y ~/waterfox-$waterfox_version*.rpm
+               clear
+               echo "Waterfox is now installed, run waterfox by doing \"waterfox\" in the terminal or run waterfox from the start menu"
+            else
+               echo "waterfox is already installed"
+            fi
 
              ;;
 
