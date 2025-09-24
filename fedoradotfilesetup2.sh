@@ -253,10 +253,9 @@ done
                sudo dnf install -y ~/waterfox-$waterfox_version*.rpm
                clear
                echo "Waterfox is now installed, run waterfox by doing \"waterfox\" in the terminal or run waterfox from the start menu"
-            else
+             else
                echo "waterfox is already installed"
-            fi
-
+             fi
              ;;
 
              5)
