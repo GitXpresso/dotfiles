@@ -226,7 +226,8 @@ done
         10. Pale Moon ( brings back the old firefox UI )
         11. Midori NoVNC 
         12. Pulse ( Kinda of like zen but longer maintained. ) 
-        13. Basilisk 
+        13. Basilisk ( Like palemoon )
+        14. Seamonkey
         "
         read -p "Pick an firefox or firefox-based browser to install. [1-11]: " firefox_browsers
         for browser in ${firefox_browsers}; do
