@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# Set up environment
+unset SESSION_MANAGER
+unset DBUS_SESSION_BUS_ADDRESS
+
+export XKL_XMODMAP_DISABLE=1
+export KDE_FULL_SESSION=true
+export DESKTOP_SESSION=plasma-mobile
+
+# Start D-Bus if not already running
+# The 'dbus-launch' command below handles the D-Bus startup.
+
+# Start KDE Plasma Mobile session
+exec dbus-launch --exit-with-session /usr/bin/startplasmamobile
