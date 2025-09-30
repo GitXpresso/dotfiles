@@ -236,6 +236,8 @@ done
              if [ ! /usr/bin/firefox ]; then
                sudo dnf install -y firefox
                echo "Firefox is now installed"
+             fi
+             echo "firefox is already installed."
              ;;
 
              2)
@@ -247,7 +249,7 @@ done
              ;;
 
              4)
-             if [ rpm -q | grep -qw "waterfox"; then
+             if rpm -q | grep -qw "waterfox"; then
                echo "Waterfox is not installed, installing..."
                waterfox_version="6.6.3"
                wget -P ~/ https://github.com/GitXpresso/LinuxPKG/releases/download/Waterfox/waterfox-$waterfox_version-2.x86_64.rpm
