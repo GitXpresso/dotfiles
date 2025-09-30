@@ -282,7 +282,16 @@ done
              ;;
 
              10)
-
+             if [ ! -f /usr/bin/palemoon ]; then
+               echo "palemoon is not installing, downloading palemoon rpm file..."
+               if ! rpm -q wget &>/dev/null; then
+                 sudo dnf install -y wget
+               fi
+               if ! rpm -q dbus-glib; then
+                 sudo dnf install -y dbus-glib
+               fi
+               wget -q --show-progress https://github.com/GitXpresso/LinuxPKG/releases/download/Palemoon/palemoon-33.9.0.1-2.x86_64.rpm
+               sudo dnf install ./palemoon*.rpm
              ;;
 
              11)
