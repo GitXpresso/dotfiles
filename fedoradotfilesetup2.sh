@@ -290,8 +290,9 @@ done
                if ! rpm -q dbus-glib; then
                  sudo dnf install -y dbus-glib
                fi
+               palemoon_version="33.9.0.1"
                wget -q --show-progress https://github.com/GitXpresso/LinuxPKG/releases/download/Palemoon/palemoon-33.9.0.1-2.x86_64.rpm
-               sudo dnf install ./palemoon*.rpm
+               sudo dnf install ./palemoon-$palemoon_version-2.x86_64.rpm
              ;;
 
              11)
