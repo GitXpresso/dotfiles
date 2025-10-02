@@ -231,7 +231,7 @@ done
         "
         read -p "Pick an firefox or firefox-based browser to install. [1-11]: " firefox_browsers
         for browser in ${firefox_browsers}; do
-           case in ${firefox_browsers}
+           case ${firefox_browsers} in
              1)
              if [ ! /usr/bin/firefox ]; then
                sudo dnf install -y firefox
