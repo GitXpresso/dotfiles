@@ -293,6 +293,9 @@ done
                palemoon_version="33.9.0.1"
                wget -q --show-progress https://github.com/GitXpresso/LinuxPKG/releases/download/Palemoon/palemoon-33.9.0.1-2.x86_64.rpm
                sudo dnf install ./palemoon-$palemoon_version-2.x86_64.rpm
+            else
+               echo "Palemoon already installed."
+            fi
              ;;
 
              11)
