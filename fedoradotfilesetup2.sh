@@ -105,7 +105,7 @@ if [ -f ~/dnf4.tmp ]; then
    fi
 done
   elif [ "$pick_an_option" == "2" ]; then
-      echo "max_parallel_downloads=3" | sudo -tee -a /etc/dnf/dnf.conf
+      echo "max_parallel_downloads=3" | sudo tee -a /etc/dnf/dnf.conf
       break
   else
      echo "Invaild input, try again..."
