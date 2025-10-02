@@ -245,7 +245,15 @@ done
              ;;
 
              3)
-
+             if ! rpm -q librewolf &>/dev/null; then
+               echo "librewolf not installed, installing..."
+               curl -fsSL https://repo.librewolf.net/librewolf.repo | sudo tee /etc/yum.repos.d/librewolf.repo
+               sudo dnf update && sudo dnf install -y librewolf
+               clear
+               echo "librewolf is now installed."
+             else
+               echo "Librewolf is already installed."
+            fi
              ;;
 
              4)
