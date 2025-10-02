@@ -321,10 +321,7 @@ done
              echo "Invalid option, try again..."
              ;;
          esac
-      done   
-        else
-           echo "Invalid option, try again..."
-        fi
+      done
       done
       else
          echo "Invalid option, try again..."
