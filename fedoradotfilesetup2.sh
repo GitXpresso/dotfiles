@@ -10,8 +10,19 @@ color_status() {
     echo "${red}Disabled${no_color}"
   fi
 }
+if ! grep "Fedora" /etc/*release; then
+  echo "you are not using Fedora, aborting..."
+  exit
+else
+   if ! rpm -q ncurses &>/dev/null; then
+     echo "ncurses not installed, installing ncurses..."
+     sudo dnf install -y ncurses
+     clear
+     echo "ncurses is now installed."
+     clear
+   fi
+fi
 
-start(){
 number='^[0-9]\+$'
 is_fast=$(grep -q "fastestmirror=True" /etc/dnf/dnf.conf && echo yes || echo no)
 is_yes=$(grep -q "defaultyes=True" /etc/dnf/dnf.conf && echo yes || echo no)
@@ -231,7 +242,7 @@ done
         "
         read -p "Pick an firefox or firefox-based browser to install. [1-11]: " firefox_browsers
         for browser in ${firefox_browsers}; do
-           case ${firefox_browsers} in
+           case browser in
              1)
              if [ ! /usr/bin/firefox ]; then
                sudo dnf install -y firefox
@@ -241,7 +252,15 @@ done
              ;;
 
              2)
-
+             if [ ! /usr/bin/floorp ]; then
+	     floorp-release="12.2.0"
+	       echo "Installing floorp..."
+	       wget -q --show-progress https://github.com/gitxpresso/linuxpkg/releases/download/Floorp-$floorp_release-2.x86_64.rpm
+	       sudo dnf install -y ./floorp-$floorp_release-2.x86_64.rpm
+	       clear
+	       echo "Floorp is now installed..."
+	     fi
+	     echo "floorp is already installed."
              ;;
 
              3)
@@ -334,9 +353,8 @@ done
     sleep 0.2
     clear
   fi
-done
-         
-}
+done         
+if_fedora(){
 if grep -qi "Fedora" /etc/*release; then
 #case "$1" in
    #--test) 
@@ -357,3 +375,4 @@ else
    echo "not using fedora, exiting..."
    exit 1
 fi
+}
